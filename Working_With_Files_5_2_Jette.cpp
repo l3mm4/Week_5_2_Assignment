@@ -1,5 +1,5 @@
 /*
- * Author: Sean J
+ * Author: Sean Jette
  * Date: 26SEP2023
  * Assignment: 5-2 Working With Files
  * Class: CS-210
