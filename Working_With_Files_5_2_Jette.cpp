@@ -1,20 +1,76 @@
-// Working_With_Files_5_2_Jette.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+/*
+ * Author: Sean J
+ * Date: 26SEP2023
+ * Assignment: 5-2 Working With Files
+ * Class: CS-210
+ */
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip> // for std::setprecision()
+#include <cmath>
+
+void FahrenheitToCelsius(std::vector<double>& fahrenheitList, std::vector<double>& celsiusList)
+{
+	for (int i = 0; i < fahrenheitList.size(); i++)
+	{
+		double celsius = (fahrenheitList.at(i) - 32) * 5 / 9;
+		celsiusList.push_back(std::round(celsius * 100) / 100.0); // round to two decimal places
+	}
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	// Open the input file
+	std::ifstream inputFile("FahrenheitTemperature.txt");
+
+	// Check if the file was opened successfully
+	if (!inputFile.is_open())
+	{
+		std::cerr << "Could not open file FahrenheitTemperature.txt" << std::endl;
+		return 1;
+	}
+
+	// Declare vectors to store the city names and temperatures
+	std::vector<std::string> cityList;
+	std::vector<double> fahrenheitList;
+
+	// Read data from the input file
+	std::string cityName;
+	double temperature;
+	while (inputFile >> cityName >> temperature)
+	{
+		cityList.push_back(cityName);
+		fahrenheitList.push_back(temperature);
+	}
+
+	// Close the input file
+	inputFile.close();
+
+	// Convert fahrenheit temperatures to Celsius
+	std::vector<double> celsiusList;
+	FahrenheitToCelsius(fahrenheitList, celsiusList);
+
+	// Open the output file
+	std::ofstream outputFile("CelsiusTemperature.txt");
+
+	// Check if the file was opened successfully
+	if (!outputFile.is_open())
+	{
+		std::cerr << "Could not open file CelsiusTemperatures.txt." << std::endl;
+		return 1;
+	}
+
+	// Write data to the output file
+	for (int i = 0; i < cityList.size(); i++)
+	{
+		outputFile << cityList.at(i) << " " << celsiusList.at(i) << "\n";
+	}
+
+	// Close the output file
+	outputFile.close();
+
+	return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

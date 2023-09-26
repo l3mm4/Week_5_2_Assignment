@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="Working_With_Files_5_2_Jette.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="FahrenheitTemperature.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
